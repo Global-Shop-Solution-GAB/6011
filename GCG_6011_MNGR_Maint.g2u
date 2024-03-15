@@ -1,0 +1,387 @@
+﻿Program.Sub.ScreenSU.Start
+Gui.F_MNGR..Create(BaseForm)
+Gui.F_MNGR..Caption("Manager Maintenance")
+Gui.F_MNGR..Size(717,766)
+Gui.F_MNGR..MinX(0)
+Gui.F_MNGR..MinY(0)
+Gui.F_MNGR..Position(0,0)
+Gui.F_MNGR..AlwaysOnTop(False)
+Gui.F_MNGR..FontName("Tahoma")
+Gui.F_MNGR..FontSize(8.25)
+Gui.F_MNGR..ControlBox(True)
+Gui.F_MNGR..MaxButton(True)
+Gui.F_MNGR..MinButton(True)
+Gui.F_MNGR..MousePointer(0)
+Gui.F_MNGR..Moveable(True)
+Gui.F_MNGR..Sizeable(True)
+Gui.F_MNGR..ShowInTaskBar(True)
+Gui.F_MNGR..TitleBar(True)
+Gui.F_MNGR..Event(UnLoad,F_MNGR_UnLoad)
+Gui.F_MNGR.frame1.Create(Frame)
+Gui.F_MNGR.frame1.Enabled(True)
+Gui.F_MNGR.frame1.Visible(True)
+Gui.F_MNGR.frame1.Zorder(0)
+Gui.F_MNGR.frame1.Size(709,51)
+Gui.F_MNGR.frame1.Position(4,5)
+Gui.F_MNGR.frame1.Caption("")
+Gui.F_MNGR.frame1.FontName("Tahoma")
+Gui.F_MNGR.frame1.FontSize(8.25)
+Gui.F_MNGR.frame1.BorderStyle(3)
+Gui.F_MNGR.lbl1.Create(Label,"Manager",True,42,13,0,5,4,True,0,"Tahoma",8.25,,0,0)
+Gui.F_MNGR.lbl1.BorderStyle(0)
+Gui.F_MNGR.lbl1.Parent("frame1")
+Gui.F_MNGR.lbl2.Create(Label,"Name",True,27,13,0,101,4,True,0,"Tahoma",8.25,,0,0)
+Gui.F_MNGR.lbl2.BorderStyle(0)
+Gui.F_MNGR.lbl2.Parent("frame1")
+Gui.F_MNGR.txtMngr.Create(TextBox,"",True,90,20,0,8,25,True,0,"Tahoma",8.25,,1)
+Gui.F_MNGR.txtName.Create(TextBox,"",True,165,20,0,104,25,True,0,"Tahoma",8.25,,1)
+Gui.F_MNGR.cmdAdd.Create(Button)
+Gui.F_MNGR.cmdAdd.Enabled(True)
+Gui.F_MNGR.cmdAdd.Visible(True)
+Gui.F_MNGR.cmdAdd.Zorder(0)
+Gui.F_MNGR.cmdAdd.Size(75,23)
+Gui.F_MNGR.cmdAdd.Position(389,22)
+Gui.F_MNGR.cmdAdd.Caption("Add")
+Gui.F_MNGR.cmdAdd.FontName("Tahoma")
+Gui.F_MNGR.cmdAdd.FontSize(8.25)
+Gui.F_MNGR.cmdAdd.Event(Click,cmdAdd_Click)
+Gui.F_MNGR.cmdDelete.Create(Button)
+Gui.F_MNGR.cmdDelete.Enabled(True)
+Gui.F_MNGR.cmdDelete.Visible(True)
+Gui.F_MNGR.cmdDelete.Zorder(0)
+Gui.F_MNGR.cmdDelete.Size(75,23)
+Gui.F_MNGR.cmdDelete.Position(470,22)
+Gui.F_MNGR.cmdDelete.Caption("Delete")
+Gui.F_MNGR.cmdDelete.FontName("Tahoma")
+Gui.F_MNGR.cmdDelete.FontSize(8.25)
+Gui.F_MNGR.cmdDelete.Event(Click,cmdDelete_Click)
+Gui.F_MNGR.cmdRefresh.Create(Button)
+Gui.F_MNGR.cmdRefresh.Enabled(True)
+Gui.F_MNGR.cmdRefresh.Visible(True)
+Gui.F_MNGR.cmdRefresh.Zorder(0)
+Gui.F_MNGR.cmdRefresh.Size(75,23)
+Gui.F_MNGR.cmdRefresh.Position(552,22)
+Gui.F_MNGR.cmdRefresh.Caption("Refresh")
+Gui.F_MNGR.cmdRefresh.FontName("Tahoma")
+Gui.F_MNGR.cmdRefresh.FontSize(8.25)
+Gui.F_MNGR.cmdRefresh.Event(Click,cmdRefresh_Click)
+Gui.F_MNGR.cmdSave.Create(Button)
+Gui.F_MNGR.cmdSave.Enabled(True)
+Gui.F_MNGR.cmdSave.Visible(True)
+Gui.F_MNGR.cmdSave.Zorder(0)
+Gui.F_MNGR.cmdSave.Size(75,23)
+Gui.F_MNGR.cmdSave.Position(633,22)
+Gui.F_MNGR.cmdSave.Caption("Save")
+Gui.F_MNGR.cmdSave.FontName("Tahoma")
+Gui.F_MNGR.cmdSave.FontSize(8.25)
+Gui.F_MNGR.cmdSave.Event(Click,cmdSave_Click)
+Gui.F_MNGR.GsGcDisplay.Create(GsGridControl)
+Gui.F_MNGR.GsGcDisplay.Enabled(True)
+Gui.F_MNGR.GsGcDisplay.Visible(True)
+Gui.F_MNGR.GsGcDisplay.Zorder(0)
+Gui.F_MNGR.GsGcDisplay.Size(708,670)
+Gui.F_MNGR.GsGcDisplay.Position(5,61)
+Gui.F_MNGR.GsGcDisplay.Event(RowClick,GsGcDisplay_RowClick)
+Gui.F_MNGR.GsGcDisplay.Event(RowCellClick,GsGcDisplay_RowCellClick)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+Function.Intrinsic.UI.UsePixels ' Allows you to use Pixels instead of Twips throughout
+
+f.Intrinsic.Control.CallSub(createDisplayDT)
+f.Intrinsic.Control.CallSub(loadGridProperties)
+gui.F_MNGR..Show
+Program.Sub.Main.End
+
+Program.Sub.createDisplayDT.Start
+f.Intrinsic.Control.Try
+	f.ODBC.Connection!con.OpenCompanyConnection
+		f.Data.Datatable.CreateFromSQL("displayDT", "con", "Select * from GCG_6011_MNGR_MAINT", True)
+	f.ODBC.Connection!con.Close
+'	f.Data.DataTable.Create("displayDT", true)
+'	f.Data.DataTable.AddColumn("displayDT", "colName", "colType")
+	
+	f.Data.DataView.Create("displayDT", "displayDV", 22)
+	gui.F_MNGR.GsGcDisplay.AddGridviewFromDataview("displayGV", "displayDT", "displayDV")
+	gui.F_MNGR.GsGcDisplay.MainView("displayGV")
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.createDisplayDT.End
+
+Program.Sub.loadGridProperties.Start
+v.Local.iCnt.Declare
+v.Local.sFields.Declare
+v.Local.iVisibleIndex.Declare
+
+v.Local.sRet.Declare
+f.Intrinsic.Control.Try
+	f.Intrinsic.String.Split(v.DataTable.displayDT.FieldNames, "*!*", v.Local.sFields)
+	f.Intrinsic.Control.For(v.Local.iCnt, 0, v.Local.sFields.UBound, 1)
+		gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", v.Local.sFields(v.Local.iCnt), "HeaderFontBold", True)
+		gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", v.Local.sFields(v.Local.iCnt), "Visible", True)
+		gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", v.Local.sFields(v.Local.iCnt), "ReadOnly", True)
+		gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", v.Local.sFields(v.Local.iCnt), "AllowEdit", False)
+		gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", v.Local.sFields(v.Local.iCnt), "HeaderHAlignment", "Near")
+		gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", v.Local.sFields(v.Local.iCnt), "CellHAlignment", "Near")
+		gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", v.Local.sFields(v.Local.iCnt), "HeaderBackColor", v.Color.GSS)
+		gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", v.Local.sFields(v.Local.iCnt), "HeaderForeColor", v.Color.White)
+	f.Intrinsic.Control.Next(v.Local.iCnt)
+	
+	'Load DropDowns.
+	f.ODBC.Connection!con.OpenCompanyConnection
+		f.ODBC.Connection!con.ExecuteAndReturn("Select distinct Sched_Name from GCG_6011_Rate_Sched", v.Local.sRet)
+		f.Intrinsic.String.Replace(v.Local.sRet, "#$#", "*!*", v.Local.sRet)
+		gui.F_MNGR.GsGcDisplay.ColumnEdit("displayGV", "SchedName", "Combobox", v.Local.sRet)
+		
+		f.ODBC.Connection!con.ExecuteAndReturn("Select distinct Sales_Team from GCG_6011_SalesTeam2", v.Local.sRet)
+		f.Intrinsic.String.Replace(v.Local.sRet, "#$#", "*!*", v.Local.sRet)
+		gui.F_MNGR.GsGcDisplay.ColumnEdit("displayGV", "SalesTeam", "Combobox", v.Local.sRet)		
+	f.ODBC.Connection!con.Close
+	
+	'GridView Properties
+	gui.F_MNGR.GsGcDisplay.BestFitColumns("displayGV")
+	'gui.F_MNGR.GsGcDisplay.SetGridviewProperty("displayGV", "OptionsViewColumnAutoWidth", False)
+	'gui.F_MNGR.GsGcDisplay.SetGridviewProperty("displayGV", "OptionsViewShowAutoFilterRow", True)
+	'gui.F_MNGR.GsGcDisplay.SetGridviewProperty("displayGV", "OptionsFindAlwaysVisible", True)
+	'gui.F_MNGR.GsGcDisplay.SetGridviewProperty("displayGV", "Showgrouppanel", True)
+	
+	'Possible Column Properties 
+	gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "SchedName", "ReadOnly", False)
+	gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "SalesTeam", "ReadOnly", False)
+	
+	gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "SchedName", "AllowEdit", True)
+	gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "SalesTeam", "AllowEdit", True)
+	
+	'Captions
+	gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "Manager", "Caption", "Manager")
+	gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "Name", "Caption", "Name")
+	gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "SchedName", "Caption", "Sched Rate Name")
+	gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "SalesTeam", "Caption", "Sales Team")
+	gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "GPD", "Caption", "Applied to GP$")
+	gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "SD", "Caption", "Applied to Sales$")
+	
+	
+	'gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "Default", "AllowEdit", True)
+	'gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "Default", "HeaderHAlignment", "Center")
+	'gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "Default", "CellHAlignment", "Center")
+	'gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "NonComm", "Caption", "Applied to GP$")
+	'gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "Default", "Visible", False)
+	'gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "Default", "DisplayCustomDatetime", "d")
+	
+	'VisibleIndex
+	'gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "Default", "VisibleIndex", v.Local.iVisibleIndex)
+	'gui.F_MNGR.GsGcDisplay.SetColumnProperty("displayGV", "Default", "VisibleIndex", v.Local.iVisibleIndex.++)
+	
+	'Conditional Formatting
+	'gui.F_MNGR.GsGcDisplay.AddStyleFormatCondition("displayGV", "columnName", "TagName", "EQUAL", 1)
+	'gui.F_MNGR.GsGcDisplay.SetStyleFormatConditionProperty("displayGV", "columnName", "TagName", "ApplyToRow", True) 
+	'gui.F_MNGR.GsGcDisplay.SetStyleFormatConditionProperty("displayGV", "columnName", "TagName", "BackColor", "Color") 
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.loadGridProperties.End
+
+Program.Sub.F_MNGR_UnLoad.Start
+f.Intrinsic.Control.End
+Program.Sub.F_MNGR_UnLoad.End
+
+Program.Sub.ErrorMsg.Start
+v.Local.sError.Declare
+
+'Closes ODBC connection, default to connection : "con"
+'f.Intrinsic.Control.If(v.ODBC!con.State, =, 1)
+'	f.ODBC.Connection!con.Close
+'f.Intrinsic.Control.EndIf
+
+'Generic Error message.
+f.Intrinsic.String.Build("Project ProjectName.g2u {0}{0}Subroutine: {1}{0}Error: {2} with Description: {3}", v.Ambient.NewLine, v.Args.CurrentSub, v.Ambient.ErrorNumber, v.Ambient.ErrorDescription, v.Local.sError)
+f.Intrinsic.UI.Msgbox(v.Local.sError)
+Program.Sub.ErrorMsg.End
+
+Program.Sub.cmdAdd_Click.Start
+v.Local.sManager.Declare
+v.Local.sName.Declare
+v.Local.sSQL.Declare
+f.Intrinsic.Control.Try
+'Try something\
+	v.Local.sManager.Set(v.Screen.F_MNGR!txtMngr.Text)
+	v.Local.sName.Set(v.Screen.F_MNGR!txtName.Text)
+	Function.Intrinsic.Debug.InvokeDebugger
+	Function.Intrinsic.Debug.Stop
+	
+	f.Intrinsic.Control.If(v.Local.sManager.Trim, =, "")
+		f.Intrinsic.UI.Msgbox("Please input a Manager")
+		f.Intrinsic.Control.ExitSub
+	f.Intrinsic.Control.EndIf
+	
+	f.Intrinsic.Control.If(v.Local.sName.Trim, =, "")
+		f.Intrinsic.UI.Msgbox("Please input a Manager's Name")
+		f.Intrinsic.Control.ExitSub
+	f.Intrinsic.Control.EndIf	
+	
+	f.ODBC.Connection!con.OpenCompanyConnection
+		f.Intrinsic.String.Build("Insert into  GCG_6011_MNGR_MAINT (Manager, Name, NonComm) Values ('{0}', '{1}', '0')", v.Local.sManager, v.Local.sName, v.Local.sSQL)
+		f.ODBC.Connection!con.Execute(v.Local.sSQL)
+	f.ODBC.Connection!con.Close
+	
+	f.Intrinsic.Control.CallSub(cmdRefresh_Click)
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.cmdAdd_Click.End
+
+Program.Sub.cmdDelete_Click.Start
+v.Local.sManager.Declare
+v.Local.sSQL.Declare
+f.Intrinsic.Control.Try
+'Try something
+	v.Local.sManager.Set(v.Screen.F_MNGR!txtMngr.Text)
+	f.Intrinsic.Control.If(v.Local.sManager.Trim, =, "")
+		f.Intrinsic.UI.Msgbox("Please Select a Manager")
+		f.Intrinsic.Control.ExitSub
+	f.Intrinsic.Control.EndIf
+	
+	f.Intrinsic.String.Build("Delete From GCG_6011_MNGR_MAINT Where Manager = '{0}'", v.Local.sManager, v.Local.sSQL)
+	f.ODBC.Connection!con.OpenCompanyConnection
+		f.ODBC.Connection!con.Execute(v.Local.sSQL)
+	f.ODBC.Connection!con.Close
+	
+	f.Intrinsic.Control.CallSub(cmdRefresh_Click)
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.cmdDelete_Click.End
+
+Program.Sub.cmdRefresh_Click.Start
+v.Local.sRet.Declare
+f.Intrinsic.Control.Try
+'Load tmpTable
+	f.ODBC.Connection!con.OpenCompanyConnection
+		f.Data.Datatable.CreateFromSQL("tmpDisplayDT", "con", "Select * from GCG_6011_MNGR_MAINT")
+	f.ODBC.Connection!con.Close
+	
+	'Merge
+	f.Data.Datatable.DeleteRow("displayDT")
+	f.Data.Datatable.AcceptChanges("displayDT")
+	f.Data.Datatable.Merge("tmpDisplayDT", "displayDT", false, 2)
+	f.Data.Datatable.AcceptChanges("displayDT")
+	f.Data.Datatable.Close("tmpDisplayDT")
+	
+	'Reload Dropdowns.
+	f.ODBC.Connection!con.OpenCompanyConnection
+		f.ODBC.Connection!con.ExecuteAndReturn("Select distinct Sched_Name from GCG_6011_Rate_Sched", v.Local.sRet)
+		f.Intrinsic.String.Replace(v.Local.sRet, "#$#", "*!*", v.Local.sRet)
+		gui.F_MNGR.GsGcDisplay.ColumnEdit("displayGV", "SchedName", "Combobox", v.Local.sRet)
+		
+		f.ODBC.Connection!con.ExecuteAndReturn("Select distinct Sales_Team from GCG_6011_SalesTeam2", v.Local.sRet)
+		f.Intrinsic.String.Replace(v.Local.sRet, "#$#", "*!*", v.Local.sRet)
+		gui.F_MNGR.GsGcDisplay.ColumnEdit("displayGV", "SalesTeam", "Combobox", v.Local.sRet)		
+	f.ODBC.Connection!con.Close
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.cmdRefresh_Click.End
+
+Program.Sub.cmdSave_Click.Start
+v.Local.sMngrs.Declare
+v.Local.sMsg.Declare
+f.Intrinsic.Control.Try
+	'Save Msg
+	f.Intrinsic.UI.InvokeWaitDialog("Saving...")
+	f.Data.Datatable.AcceptChanges("displayDT")
+	f.ODBC.Connection!con.OpenCompanyConnection
+	 	f.Data.Datatable.SaveToDB("displayDT", "con", "GCG_6011_MNGR_MAINT", "Manager", 256)
+	f.ODBC.Connection!con.Close	
+	
+	'Create DV to get String.
+	f.Data.DataView.Create("displayDT", "exportDV", 22, "Trim(SalesTeam) = ''", "")
+	f.Data.DataView.ToString("displayDT", "exportDV", "Manager", "*!*", v.Ambient.NewLine, v.Local.sMngrs)
+	f.Data.DataView.Close("displayDT", "exportDV")
+	'Disclosure for No Sales Team Managers.
+	f.Intrinsic.Control.If(v.Local.sMngrs.Trim, <>, "")
+		f.Intrinsic.String.Build("No Sales Team has been selected therefore the assigned rate schedule will be applied to Company totals, not a subset thereof.{0}For the following Managers:{0}{1}", v.Ambient.NewLine, v.Local.sMngrs, v.Local.sMsg)
+		f.Intrinsic.UI.Msgbox(v.Local.sMsg)
+	f.Intrinsic.Control.EndIf	
+	
+	f.Intrinsic.UI.CloseWaitDialog
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.cmdSave_Click.End
+
+Program.Sub.GsGcDisplay_RowClick.Start
+v.Local.sMngr.Declare
+v.Local.sName.Declare
+f.Intrinsic.Control.Try
+	gui.F_MNGR.GsGcDisplay.GetCellValueByColumnName("displayGV", "Manager", v.Args.RowIndex, v.Local.sMngr)
+	gui.F_MNGR.txtMngr.Text(v.Local.sMngr)
+	
+	gui.F_MNGR.GsGcDisplay.GetCellValueByColumnName("displayGV", "Name", v.Args.RowIndex, v.Local.sName)
+	gui.F_MNGR.txtName.Text(v.Local.sName)
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.GsGcDisplay_RowClick.End
+
+Program.Sub.GsGcDisplay_RowCellClick.Start
+v.Local.sMngr.Declare
+v.Local.sName.Declare
+v.Local.sColumn.Declare
+v.Local.bCheck.Declare
+f.Intrinsic.Control.Try
+'Try something
+	v.Local.sColumn.Set(v.Args.Column)
+	f.Intrinsic.String.UCase(v.Local.sColumn, v.Local.sColumn)
+	'Select Case
+	f.Intrinsic.Control.SelectCase(v.Local.sColumn)
+	
+		f.Intrinsic.Control.Case("MANAGER")
+			gui.F_MNGR.GsGcDisplay.GetCellValueByColumnName("displayGV", "Manager", v.Args.RowIndex, v.Local.sMngr)
+			gui.F_MNGR.txtMngr.Text(v.Local.sMngr)
+	
+			gui.F_MNGR.GsGcDisplay.GetCellValueByColumnName("displayGV", "Name", v.Args.RowIndex, v.Local.sName)
+			gui.F_MNGR.txtName.Text(v.Local.sName)
+	
+		f.Intrinsic.Control.Case("NAME")
+			gui.F_MNGR.GsGcDisplay.GetCellValueByColumnName("displayGV", "Manager", v.Args.RowIndex, v.Local.sMngr)
+			gui.F_MNGR.txtMngr.Text(v.Local.sMngr)
+	
+			gui.F_MNGR.GsGcDisplay.GetCellValueByColumnName("displayGV", "Name", v.Args.RowIndex, v.Local.sName)
+			gui.F_MNGR.txtName.Text(v.Local.sName)
+		
+		f.Intrinsic.Control.Case("GPD")
+			gui.F_MNGR.GsGcDisplay.GetCellValueByColumnName("displayGV", "GPD", v.Args.RowIndex, v.Local.bCheck)
+			f.Intrinsic.Control.If(v.Local.bCheck)
+				gui.F_MNGR.GsGcDisplay.SetCellValueByColumnName("displayGV", "SD", v.Args.RowIndex, v.Local.bCheck)
+				gui.F_MNGR.GsGcDisplay.SetCellValueByColumnName("displayGV", "GPD", v.Args.RowIndex, v.Local.bCheck.Not)
+			f.Intrinsic.Control.Else				
+				gui.F_MNGR.GsGcDisplay.SetCellValueByColumnName("displayGV", "SD", v.Args.RowIndex, v.Local.bCheck)
+				gui.F_MNGR.GsGcDisplay.SetCellValueByColumnName("displayGV", "GPD", v.Args.RowIndex, v.Local.bCheck.Not)
+			f.Intrinsic.Control.EndIf
+			
+		f.Intrinsic.Control.Case("SD")
+			gui.F_MNGR.GsGcDisplay.GetCellValueByColumnName("displayGV", "SD", v.Args.RowIndex, v.Local.bCheck)
+			f.Intrinsic.Control.If(v.Local.bCheck)
+				gui.F_MNGR.GsGcDisplay.SetCellValueByColumnName("displayGV", "GPD", v.Args.RowIndex, v.Local.bCheck)
+				gui.F_MNGR.GsGcDisplay.SetCellValueByColumnName("displayGV", "SD", v.Args.RowIndex, v.Local.bCheck.Not)
+			f.Intrinsic.Control.Else				
+				gui.F_MNGR.GsGcDisplay.SetCellValueByColumnName("displayGV", "GPD", v.Args.RowIndex, v.Local.bCheck)
+				gui.F_MNGR.GsGcDisplay.SetCellValueByColumnName("displayGV", "SD", v.Args.RowIndex, v.Local.bCheck.Not)
+			f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.EndSelect
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub(ErrorMsg, CurrentSub, v.Ambient.CurrentSubroutine)
+f.Intrinsic.Control.EndTry
+Program.Sub.GsGcDisplay_RowCellClick.End
+
+Program.Sub.Comments.Start
+${$5$}$3.0.0.0$}$1
+${$6$}$aanazco$}$20201008201359074$}$7aQAV3Tor/tR9bkuakHbuzQlHVuXCGOzSt/FSh7oHkZAA/4BRA4csSo11ok0Lv1hi8x303775s0=
+Program.Sub.Comments.End
