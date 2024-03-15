@@ -1,0 +1,3 @@
+CREATE TABLE "GCG_6011_ST_List" (
+ "SalesTeam" VARCHAR(50) NOT NULL );
+
